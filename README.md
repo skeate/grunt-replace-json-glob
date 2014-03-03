@@ -1,3 +1,5 @@
+![travis-ci build](https://travis-ci.org/skeate/grunt-replace-json-glob.png)
+
 # grunt-replace-json-glob
 
 > Expands globs in json files.
