@@ -19,8 +19,6 @@ module.exports = function (grunt) {
       // Read in file as JSON
       var json = grunt.file.readJSON(file.src);
 
-      grunt.log.writeln('read in '+file.src);
-
       function objRef(obj, prop){
         var propList = prop.split('.');
         var temp = obj;
