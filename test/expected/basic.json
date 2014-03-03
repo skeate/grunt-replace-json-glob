@@ -1,0 +1,8 @@
+{
+  "files": [
+    "test/fixtures/basic.json",
+    "test/fixtures/subdir.json"
+  ],
+  "other": "string",
+  "anotherProperty": false
+}

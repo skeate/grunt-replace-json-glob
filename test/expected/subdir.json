@@ -1,0 +1,6 @@
+{
+  "files": [
+    "fixtures/basic.json",
+    "fixtures/subdir.json"
+  ]
+}

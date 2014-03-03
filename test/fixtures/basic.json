@@ -1,0 +1,5 @@
+{
+    "files": ["test/fixtures/*.json"],
+    "other": "string",
+    "anotherProperty": false
+}

@@ -1,6 +1,6 @@
 /*
  * grunt-replace-json-glob
- * 
+ *
  *
  * Copyright (c) 2014 Jonathan Skeate
  * Licensed under the MIT license.
@@ -14,34 +14,34 @@ module.exports = function (grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('replace_json_glob', 'Expands globs in json files.', function () {
-
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
-
     // Iterate over all specified file groups.
     this.files.forEach(function (file) {
-      // Concat specified files.
-      var src = file.src.filter(function (filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function (filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+      // Read in file as JSON
+      var json = grunt.file.readJSON(file.src);
 
-      // Handle options.
-      src += options.punctuation;
+      grunt.log.writeln('read in '+file.src);
+
+      function objRef(obj, prop){
+        var propList = prop.split('.');
+        var temp = obj;
+        for( var i = 0; i < propList.length-1; i++ ){
+          temp = temp[propList[i]];
+        }
+        return {base: temp, prop: propList[i]};
+      }
+
+      for( var i = 0; i < file.props.length; i++ ){
+        var o = objRef(json, file.props[i]);
+        if( typeof file.subdir !== 'undefined' ){
+          o.base[o.prop] = grunt.file.expand({cwd: file.subdir}, o.base[o.prop]);
+        }
+        else{
+          o.base[o.prop] = grunt.file.expand(o.base[o.prop]);
+        }
+      }
 
       // Write the destination file.
-      grunt.file.write(file.dest, src);
+      grunt.file.write(file.dest, JSON.stringify(json, null, "  "));
 
       // Print a success message.
       grunt.log.writeln('File "' + file.dest + '" created.');

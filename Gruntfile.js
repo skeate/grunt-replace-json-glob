@@ -33,21 +33,24 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     replace_json_glob: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+      build: {
+        files: [{
+            src: 'test/fixtures/basic.json',
+            dest: 'tmp/basic.json',
+            props: ['files']
+          },
+          {
+            src: 'test/fixtures/subdir.json',
+            dest: 'tmp/subdir.json',
+            props: ['files'],
+            subdir: 'test'
+          },
+          {
+            src: 'test/fixtures/app/manifest.json',
+            dest: 'tmp/dist/manifest.json',
+            props: ['content_scripts.0.js'],
+            subdir: 'test/fixtures/app'
+          }]
       }
     },
 
