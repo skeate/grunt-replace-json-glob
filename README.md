@@ -2,6 +2,8 @@
 
 # grunt-replace-json-glob
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/skeate/grunt-replace-json-glob.svg)](https://greenkeeper.io/)
+
 > Expands globs in json files.
 
 ## Getting Started
